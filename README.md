@@ -28,8 +28,8 @@ Example
 A first example: trying to acquire a lock without waiting
 
 ```php
-// You need to create an instance "myLock" of the Lock class in Mouf first.
-$lock = Mouf::getMyLock();
+// Let's create the lock instance
+$lock = new Lock("my_lock_name");
 
 // Try to acquire lock without waiting
 try {
@@ -44,8 +44,8 @@ try {
 A second example: acquire a lock and wait if the lock is not available
 
 ```php
-// You need to create an instance "myLock" of the Lock class in Mouf first.
-$lock = Mouf::getMyLock();
+// Let's create the lock instance
+$lock = new Lock("my_lock_name");
 
 // Try to acquire lock and wait if the lock is not available
 $lock->acquireLock(true);
@@ -54,11 +54,17 @@ $lock->releaseLock();
 
 ```
 
-An example without using Mouf or any other DI mechanism:
+Good practices
+--------------
+
+A good practice is to create the lock object via a dependency injection mechanism.
+This way, you can share instances of your lock accross services that require it.
+The Mouf framework let's you do that. Assuming you create a "myLock" instance, your code would look like this:
 
 
 ```php
-$lock = new Lock("my_lock_name");
+// You need to create an instance "myLock" of the Lock class in Mouf first.
+$lock = Mouf::getMyLock();
 
 // Try to acquire lock without waiting
 try {
