@@ -1,6 +1,6 @@
 {
 	"name" : "mouf/utils.common.lock",
-	"description" : "A simple package that provides functions to get a lock. Typically, you want to use locks when you want to be sure that 2 actions do not happen at the same time. For instance, if you regularly schedule cron tasks,	you might want to be sure the last cron task finished before running the new one. A lock can help you do that.",
+	"description" : "A simple package that provides functions to get a lock. Typically, you want to use locks when you want to be sure that 2 actions do not happen at the same time. For instance, if you regularly schedule cron tasks, you might want to be sure the last cron task finished before running the new one. A lock can help you do that.",
 	"type" : "mouf-library",
 	"authors" : [{
 			"name" : "David Négrier",
