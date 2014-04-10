@@ -59,8 +59,11 @@ Good practices
 
 A good practice is to create the lock object via a dependency injection mechanism.
 This way, you can share instances of your lock accross services that require it.
-The Mouf framework let's you do that. Assuming you create a "myLock" instance, your code would look like this:
+The [Mouf framework](http://mouf-php.com) let's you do that. Let's assume you create a "myLock" instance:
 
+![mouf instance](doc/images/instance.png)
+
+Your code to use the lock would look this:
 
 ```php
 // You need to create an instance "myLock" of the Lock class in Mouf first.
