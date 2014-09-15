@@ -14,14 +14,15 @@ class Lock implements LockInterface {
 	
 	/**
 	 * Lock constructor
-	 * @param string $fileName Locks are implemented using a temporary file (that will be created in the temporary directory). Please provide a unique name for that file.
+	 * @param string $fileName Locks are implemented using a temporary file (if the filename doesn't start by a "/" the file will be created in the temporary directory). Please provide a unique name for that file.
 	 */
 	public function __construct($fileName = null) {
 		$this->fileName = $fileName;
 	}
 	
 	/**
-	 * Locks are implemented using a temporary file (that will be created in the temporary directory)
+	 * Locks are implemented using a temporary file
+     * If the filename doesn't start by a "/" the file will be created in the temporary directory
 	 * Please provide a unique name for that file.
 	 * 
 	 * @var string
@@ -43,12 +44,18 @@ class Lock implements LockInterface {
 		if (empty($this->fileName)) {
 			throw new LockException("You should provide a fileName in the instance of your lock.");
 		}
-		
-		if (!file_exists(sys_get_temp_dir().'/'.$this->fileName)) {
-			touch(sys_get_temp_dir().'/'.$this->fileName);
-		}
 
-		if ($this->fpt = fopen(sys_get_temp_dir().'/'.$this->fileName, 'r'))
+        if (strpos($this->fileName, '/') === 0) {
+            $filename = $this->fileName;
+        } else {
+            $filename = sys_get_temp_dir().'/'.$this->fileName;
+        }
+
+        if (!file_exists($filename)) {
+            touch($filename);
+        }
+
+		if ($this->fpt = fopen($filename, 'r'))
 		{
 			if ($wait) {
 				$lockMode = LOCK_EX;
